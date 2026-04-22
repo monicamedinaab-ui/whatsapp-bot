@@ -16,7 +16,7 @@ const candidates = new Map();
 
 function getCandidate(phone) {
   if (!candidates.has(phone)) {
-    candidates.set(phone, { step: 0, answers: {} });
+    candidates.set(phone, { step: 0, answers: {}, started: false });
   }
   return candidates.get(phone);
 }
@@ -276,7 +276,8 @@ app.post("/webhook", async (req, res) => {
 
     const candidate = getCandidate(phone);
 
-    if (candidate.step === 0 && !candidate.answers.area) {
+    if (!candidate.started) {
+      candidate.started = true;
       await sendWhatsAppMessage(phone, QUESTIONS[0].text);
       return;
     }
@@ -291,3 +292,4 @@ app.get("/", (_req, res) => res.send("Bot rodando ✅"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🤖 Bot rodando na porta ${PORT}`));
+
