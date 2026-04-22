@@ -178,12 +178,12 @@ Um candidato completou o formulário com esses dados:
 - Salário esperado: ${answers.salario}
 
 Gere uma mensagem de encerramento curta (máximo 6 linhas) que:
-1. Chame pelo nome da pessoa
-2. Agradeça de forma calorosa e genuína
+1. Chame pelo nome da pessoa com carinho
+2. Comemore que ela terminou o formulário, com energia e alegria
 3. Confirme que os dados foram registrados
-4. Diga que a equipe da Maria Empregos vai entrar em contato em breve se aparecer uma vaga
-5. Termine com uma frase animada e acolhedora
-Use emojis com moderação. Use *texto* para negrito (formato WhatsApp). Sem markdown com #.
+4. Diga que a equipe da Maria Empregos vai entrar em contato quando surgir uma vaga
+5. Termine com uma frase super acolhedora e animada, como se fosse um abraço
+O tom deve ser como Ivete Sangalo falando: popular, nordestino, cheio de energia e carinho, sem ser formal. Use expressões como "arrasou", "que orgulho", "mandou bem", "vai dar certo". Use emojis com alegria. Use *texto* para negrito (formato WhatsApp). Sem markdown com #. Sem asteriscos duplos.
 `.trim();
 
   const result = await model.generateContent(prompt);
