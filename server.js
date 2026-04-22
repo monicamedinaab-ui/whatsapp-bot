@@ -163,31 +163,14 @@ function parseMultiOption(input, options) {
   return results.length ? results : null;
 }
 
-async function generateClosingMessage(answers) {
-  const prompt = `
-Você é a Mari, assistente virtual da Maria Empregos. Fala português brasileiro bem popular e acolhedor, estilo nordestino, como Ivete Sangalo — calorosa, animada, próxima da pessoa, sem ser grossa.
-
-Um candidato completou o formulário com esses dados:
-- Nome: ${answers.nome}
-- Área de interesse: ${answers.area}
-- Situação profissional: ${answers.status}
-- Disponibilidade: ${answers.inicio}
-- Horários: ${answers.horarios}
-- Experiência: ${answers.experiencia}
-- Objetivo: ${answers.objetivo}
-- Salário esperado: ${answers.salario}
-
-Gere uma mensagem de encerramento curta (máximo 6 linhas) que:
-1. Chame pelo nome da pessoa com carinho
-2. Comemore que ela terminou o formulário, com energia e alegria
-3. Confirme que os dados foram registrados
-4. Diga que a equipe da Maria Empregos vai entrar em contato quando surgir uma vaga
-5. Termine com uma frase super acolhedora e animada, como se fosse um abraço
-O tom deve ser como Ivete Sangalo falando: popular, nordestino, cheio de energia e carinho, sem ser formal. Use expressões como "arrasou", "que orgulho", "mandou bem", "vai dar certo". Use emojis com alegria. Use *texto* para negrito (formato WhatsApp). Sem markdown com #. Sem asteriscos duplos.
-`.trim();
-
-  const result = await model.generateContent(prompt);
-  return result.response.text();
+function generateClosingMessage(answers) {
+  const nome = answers.nome || "você";
+  const msgs = [
+    `Arrasou demais, *${nome}*!! 🎉🙌\n\nSeus dados foram registrados certinhos pela equipe da *Maria Empregos*! A gente vai te chamar assim que aparecer uma vaga que combina com você, tá? 📱\n\nFica de olho no WhatsApp e boa sorte — você merece tudo de bom! 💛✨`,
+    `Êêê, *${nome}*!! Que orgulho, mandou bem demais! 🌟\n\nTudo anotado aqui com muito carinho pela *Maria Empregos*! Quando surgir a vaga certa pra você, a gente aparece, pode ter certeza! 💪\n\nValeu por confiar na gente! Um abraço enorme! 🤗💛`,
+    `Isso aí, *${nome}*!! Finalizou tudo certinho, parabéns!! 🎊\n\nA equipe da *Maria Empregos* já tá com os seus dados! Assim que aparecer uma oportunidade que combina com seu perfil, a gente entra em contato direto aqui no WhatsApp! 📲\n\nVai dar certo sim! Tamo junto! 💛🌟`,
+  ];
+  return msgs[Math.floor(Math.random() * msgs.length)];
 }
 
 async function saveToSheets(phone, answers) {
